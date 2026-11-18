@@ -31,7 +31,6 @@ function playHintSound() {
     const gain = ctx.createGain();
     osc.type = 'sine';
 
-    // 1音目「ピ」(A5: 880Hz) → 0.08秒後に2音目「コーン」(E6: 1318.5Hz)
     osc.frequency.setValueAtTime(880, now);
     osc.frequency.setValueAtTime(1318.51, now + 0.08);
 
@@ -52,18 +51,18 @@ function playHintSound() {
 
 function getDirectionInfo(dx, dy) {
   const deg = (Math.atan2(dy, dx) * 180) / Math.PI; // -180 ~ 180 (右が0, 下が90)
-  const snapped = Math.round(deg / 90) * 90;
+  const snapped = Math.round(deg / 45) * 45;
   const rad = (snapped * Math.PI) / 180;
   const map = {
     0: { key: 'right', arrowDeg: 90 },
-    //45: { key: 'bottom-right', arrowDeg: 135 },
+    45: { key: 'bottom-right', arrowDeg: 135 },
     90: { key: 'bottom', arrowDeg: 180 },
-    //135: { key: 'bottom-left', arrowDeg: 225 },
+    135: { key: 'bottom-left', arrowDeg: 225 },
     180: { key: 'left', arrowDeg: 270 },
     '-180': { key: 'left', arrowDeg: 270 },
-    //'-135': { key: 'top-left', arrowDeg: 315 },
+    '-135': { key: 'top-left', arrowDeg: 315 },
     '-90': { key: 'top', arrowDeg: 0 },
-    //'-45': { key: 'top-right', arrowDeg: 45 },
+    '-45': { key: 'top-right', arrowDeg: 45 },
   };
   const info = map[snapped] ?? { key: 'top', arrowDeg: 0 };
   return {
